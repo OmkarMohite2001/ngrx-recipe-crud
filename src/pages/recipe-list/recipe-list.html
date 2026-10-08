@@ -1,0 +1,184 @@
+<section class="recipe-page">
+  <!-- ================= PAGE HEADER ================= -->
+
+  <div class="page-header">
+    <div>
+      <p class="eyebrow">DISCOVER RECIPES</p>
+
+      <h1>Recipe Collection</h1>
+
+      <p class="page-description">
+        Explore delicious recipes and manage your personal recipe collection.
+      </p>
+    </div>
+
+    <a routerLink="/recipes/add" class="primary-button"> + Add Recipe </a>
+  </div>
+
+  <!-- ================= SEARCH ================= -->
+
+  <div class="toolbar">
+    <div class="search-box">
+      <span class="search-icon"> 🔍 </span>
+
+      <input type="text" placeholder="Search recipes..." />
+    </div>
+
+    <select class="filter-select">
+      <option value="">All Cuisines</option>
+
+      <option value="Italian">Italian</option>
+
+      <option value="Indian">Indian</option>
+
+      <option value="American">American</option>
+    </select>
+
+    <select class="filter-select">
+      <option value="">All Difficulty</option>
+
+      <option value="Easy">Easy</option>
+
+      <option value="Medium">Medium</option>
+
+      <option value="Hard">Hard</option>
+    </select>
+  </div>
+
+  <!-- ================= LOADING ================= -->
+
+  @if (loading$ | async) {
+    <div class="loading">
+      <div class="spinner"></div>
+
+      <p>Loading recipes...</p>
+    </div>
+  }
+
+  <!-- ================= ERROR ================= -->
+
+  @if (error$ | async; as error) {
+    <div class="error-box">
+      <div>
+        <strong> Something went wrong </strong>
+
+        <p>
+          {{ error }}
+        </p>
+      </div>
+    </div>
+  }
+
+  <!-- ================= DATA ================= -->
+
+  @if (recipes$ | async; as recipes) {
+    <!-- RESULT INFO -->
+
+    <div class="result-info">
+      <span> Showing {{ recipes.length }} recipes </span>
+
+      <span>
+        Sort by:
+        <strong>Rating</strong>
+      </span>
+    </div>
+
+    <!-- EMPTY STATE -->
+
+    @if (recipes.length === 0 && !(loading$ | async)) {
+      <div class="empty-state">
+        <div class="empty-icon">🍽️</div>
+
+        <h2>No recipes found</h2>
+
+        <p>There are no recipes available.</p>
+      </div>
+    }
+
+    <!-- ================= RECIPE GRID ================= -->
+
+    @if (recipes.length > 0) {
+      <div class="recipe-grid">
+        @for (recipe of recipes; track recipe.id) {
+          <article class="recipe-card">
+            <!-- IMAGE -->
+
+            <div class="image-wrapper">
+              <img [src]="recipe.image" [alt]="recipe.name" />
+
+              <span class="difficulty">
+                {{ recipe.difficulty }}
+              </span>
+            </div>
+
+            <!-- CONTENT -->
+
+            <div class="card-content">
+              <!-- TOP -->
+
+              <div class="card-top">
+                <span class="cuisine">
+                  {{ recipe.cuisine }}
+                </span>
+
+                <span class="rating"> ⭐ {{ recipe.rating }} </span>
+              </div>
+
+              <!-- NAME -->
+
+              <h2>
+                {{ recipe.name }}
+              </h2>
+
+              <!-- META -->
+
+              <div class="recipe-meta">
+                <span>
+                  ⏱
+                  {{ recipe.prepTimeMinutes + recipe.cookTimeMinutes }}
+                  min
+                </span>
+
+                <span>
+                  🔥
+                  {{ recipe.caloriesPerServing }}
+                  cal
+                </span>
+              </div>
+
+              <!-- ACTIONS -->
+
+              <div class="card-actions">
+                <!-- VIEW -->
+
+                <a [routerLink]="['/recipes', recipe.id]" class="view-button"> View </a>
+
+                <!-- EDIT -->
+
+                <a [routerLink]="['/recipes/edit', recipe.id]" class="edit-button"> Edit </a>
+
+                <!-- DELETE -->
+
+                <button class="delete-button" type="button">Delete</button>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    }
+  }
+
+  <!-- ================= PAGINATION ================= -->
+
+  <div class="pagination">
+    <button type="button" disabled>← Previous</button>
+
+    <button class="page active" type="button">1</button>
+
+    <button class="page" type="button">2</button>
+
+    <button class="page" type="button">3</button>
+
+    <button type="button">Next →</button>
+  </div>
+</section>

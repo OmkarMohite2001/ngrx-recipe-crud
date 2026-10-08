@@ -1,0 +1,110 @@
+<section class="details-page">
+  <!-- BACK -->
+
+  <a routerLink="/recipes" class="back-link"> ← Back to Recipes </a>
+
+  <div class="details-card">
+    <!-- IMAGE -->
+
+    <div class="details-image">
+      <img [src]="recipe.image" [alt]="recipe.name" />
+    </div>
+
+    <!-- CONTENT -->
+
+    <div class="details-content">
+      <div class="details-heading">
+        <div>
+          <span class="cuisine">
+            {{ recipe.cuisine }}
+          </span>
+
+          <h1>
+            {{ recipe.name }}
+          </h1>
+        </div>
+
+        <span class="rating">
+          ⭐ {{ recipe.rating }}
+          <small> ({{ recipe.reviewCount }} reviews) </small>
+        </span>
+      </div>
+
+      <p class="description">
+        A delicious recipe prepared with fresh ingredients and simple cooking techniques.
+      </p>
+
+      <!-- INFO -->
+
+      <div class="info-grid">
+        <div class="info-item">
+          <span>Difficulty</span>
+          <strong>{{ recipe.difficulty }}</strong>
+        </div>
+
+        <div class="info-item">
+          <span>Prep Time</span>
+          <strong>{{ recipe.prepTime }} min</strong>
+        </div>
+
+        <div class="info-item">
+          <span>Cook Time</span>
+          <strong>{{ recipe.cookTime }} min</strong>
+        </div>
+
+        <div class="info-item">
+          <span>Servings</span>
+          <strong>{{ recipe.servings }}</strong>
+        </div>
+
+        <div class="info-item">
+          <span>Calories</span>
+          <strong>{{ recipe.calories }}</strong>
+        </div>
+      </div>
+
+      <!-- INGREDIENTS -->
+
+      <div class="section">
+        <h2>Ingredients</h2>
+
+        <ul class="ingredients">
+          @for (ingredient of recipe.ingredients; track ingredient) {
+            <li>
+              <span>✓</span>
+              {{ ingredient }}
+            </li>
+          }
+        </ul>
+      </div>
+
+      <!-- INSTRUCTIONS -->
+
+      <div class="section">
+        <h2>Instructions</h2>
+
+        <div class="instructions">
+          @for (instruction of recipe.instructions; track $index) {
+            <div class="instruction">
+              <span class="step">
+                {{ $index + 1 }}
+              </span>
+
+              <p>
+                {{ instruction }}
+              </p>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- ACTIONS -->
+
+      <div class="details-actions">
+        <a [routerLink]="['/recipes/edit', recipe.id]" class="edit-button"> Edit Recipe </a>
+
+        <a routerLink="/recipes" class="back-button"> Back </a>
+      </div>
+    </div>
+  </div>
+</section>

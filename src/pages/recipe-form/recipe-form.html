@@ -1,0 +1,156 @@
+<section class="form-page">
+  <!-- HEADER -->
+
+  <div class="form-header">
+    <div>
+      <p class="eyebrow">RECIPE MANAGEMENT</p>
+
+      <h1>
+        {{ isEditMode ? 'Edit Recipe' : 'Create Recipe' }}
+      </h1>
+
+      <p>
+        {{
+          isEditMode ? 'Update your recipe information.' : 'Add a new recipe to your collection.'
+        }}
+      </p>
+    </div>
+
+    <a routerLink="/recipes" class="cancel-button"> Cancel </a>
+  </div>
+
+  <!-- FORM CARD -->
+
+  <div class="form-card">
+    <form>
+      <!-- BASIC INFORMATION -->
+
+      <div class="form-section">
+        <h2>Basic Information</h2>
+
+        <p class="section-description">Enter the main information about your recipe.</p>
+
+        <div class="form-grid">
+          <!-- NAME -->
+
+          <div class="form-group full">
+            <label> Recipe Name </label>
+
+            <input
+              type="text"
+              name="name"
+              [(ngModel)]="recipe.name"
+              placeholder="Enter recipe name"
+            />
+          </div>
+
+          <!-- CUISINE -->
+
+          <div class="form-group">
+            <label> Cuisine </label>
+
+            <select name="cuisine" [(ngModel)]="recipe.cuisine">
+              <option value="">Select cuisine</option>
+
+              <option value="Indian">Indian</option>
+
+              <option value="Italian">Italian</option>
+
+              <option value="American">American</option>
+
+              <option value="Mexican">Mexican</option>
+
+              <option value="Japanese">Japanese</option>
+            </select>
+          </div>
+
+          <!-- DIFFICULTY -->
+
+          <div class="form-group">
+            <label> Difficulty </label>
+
+            <select name="difficulty" [(ngModel)]="recipe.difficulty">
+              <option value="Easy">Easy</option>
+
+              <option value="Medium">Medium</option>
+
+              <option value="Hard">Hard</option>
+            </select>
+          </div>
+
+          <!-- PREP TIME -->
+
+          <div class="form-group">
+            <label> Prep Time (minutes) </label>
+
+            <input type="number" name="prepTime" [(ngModel)]="recipe.prepTime" min="0" />
+          </div>
+
+          <!-- COOK TIME -->
+
+          <div class="form-group">
+            <label> Cook Time (minutes) </label>
+
+            <input type="number" name="cookTime" [(ngModel)]="recipe.cookTime" min="0" />
+          </div>
+
+          <!-- SERVINGS -->
+
+          <div class="form-group">
+            <label> Servings </label>
+
+            <input type="number" name="servings" [(ngModel)]="recipe.servings" min="1" />
+          </div>
+
+          <!-- CALORIES -->
+
+          <div class="form-group">
+            <label> Calories </label>
+
+            <input type="number" name="calories" [(ngModel)]="recipe.calories" min="0" />
+          </div>
+        </div>
+      </div>
+
+      <!-- INGREDIENTS -->
+
+      <div class="form-section">
+        <h2>Ingredients</h2>
+
+        <p class="section-description">Add ingredients separated by commas.</p>
+
+        <textarea
+          name="ingredients"
+          [(ngModel)]="recipe.ingredients"
+          rows="5"
+          placeholder="Example: Tomato, Cheese, Onion, Garlic..."
+        ></textarea>
+      </div>
+
+      <!-- INSTRUCTIONS -->
+
+      <div class="form-section">
+        <h2>Instructions</h2>
+
+        <p class="section-description">Explain the cooking steps clearly.</p>
+
+        <textarea
+          name="instructions"
+          [(ngModel)]="recipe.instructions"
+          rows="7"
+          placeholder="Enter cooking instructions..."
+        ></textarea>
+      </div>
+
+      <!-- ACTIONS -->
+
+      <div class="form-actions">
+        <a routerLink="/recipes" class="secondary-button"> Cancel </a>
+
+        <button type="submit" class="primary-button">
+          {{ isEditMode ? 'Update Recipe' : 'Save Recipe' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
